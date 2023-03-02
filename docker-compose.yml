@@ -19,10 +19,10 @@ services:
     - 26060:26060
     expose:
     - 30323
-    - 28009
-    - 28545
-    - 28546
-    - 26060
+    #- 28009
+    #- 28545
+    #- 28546
+    #- 26060
     command:
     - --datadir=/opt/autonity/data
     - --${AT_NETWORK}
