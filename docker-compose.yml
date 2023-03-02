@@ -1,0 +1,52 @@
+version: "3.9"
+services:
+  autonity:
+    stop_grace_period: 30s
+    container_name: autonity
+    restart: unless-stopped
+    image: ghcr.io/autonity/autonity:${AT_IMAGE_VERSION}
+    networks:
+    - autonity
+    volumes:
+    - ${AT_DATA_DIR}:/opt/autonity/data
+    - ${AT_KEYSTORE_DIR}:/opt/autonity/keystore
+    ports:
+    - 30323:30303/tcp
+    - 30323:30303/udp
+    - 28009:8009
+    - 28545:8545
+    - 28546:8546
+    - 26060:26060
+    expose:
+    - 30323
+    - 28009
+    - 28545
+    - 28546
+    - 26060
+    command:
+    - --datadir=/opt/autonity/data
+    - --${AT_NETWORK}
+    - --keystore=/opt/autonity/keystore
+    - --http
+    - --http.addr=0.0.0.0 
+    - --http.api=aut,eth,net,txpool,web3,admin 
+    - --http.vhosts=\* 
+    - --ws  
+    - --ws.addr=0.0.0.0 
+    - --ws.api=aut,eth,net,txpool,web3,admin  
+    - --nat=extip:87.115.147.237
+    - --metrics
+    - --metrics.addr=0.0.0.0  
+    - --metrics.port=26060   
+    - --pprof
+    #- --verbosity=5
+    #- --log.debug
+    #- --log.backtrace="rpc/handler.go:306"
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: "10"
+networks:
+  autonity:
+    name: autonity_network
