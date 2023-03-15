@@ -2,7 +2,8 @@ version: "3.9"
 services:
   autonity:
     stop_grace_period: 30s
-    container_name: autonity
+    build:
+        context: autonity
     restart: unless-stopped
     image: ghcr.io/autonity/autonity:${AT_IMAGE_VERSION}
     networks:
@@ -34,7 +35,7 @@ services:
     - --ws  
     - --ws.addr=0.0.0.0 
     - --ws.api=aut,eth,net,txpool,web3,admin  
-    - --nat=extip:87.115.147.237
+    - --nat=extip:${AT_EXTERNAL_IP}
     - --metrics
     - --metrics.addr=0.0.0.0  
     - --metrics.port=26060   

@@ -1,0 +1,3 @@
+[submodule "autonity"]
+	path = autonity
+	url = https://github.com/autonity/autonity.git
